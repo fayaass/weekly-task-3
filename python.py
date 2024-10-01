@@ -1,5 +1,5 @@
-user=[{'name': 'aaa', 'id': 101, 'email': 'a@', 'books': [201,202], 'phone': 123, 'password': 'asd'}]
-lib=[{'name':'balarama','id':201,'price':25,'stock':10},{'name':'balarama','id':202,'price':25,'stock':10}]
+user=[{'name': 'aaa', 'id': 101, 'email': 'a@', 'fwrs': [201,202], 'phone': 123, 'password': 'asd'}]
+fwr=[{'name':'shoe','id':201,'price':2500,'stock':10},{'name':'slider','id':202,'price':1000,'stock':5}]
 
 def register():
     if len(user)==0:
@@ -18,7 +18,7 @@ def register():
             username=email
             phone=int(input('enter phone no :'))
             password=input('enter the password :')
-            user.append({'name':name,'id':id,'email':email,'books':[],'phone':phone,'password':password})
+            user.append({'name':name,'id':id,'email':email,'fwrs':[],'phone':phone,'password':password})
 
 
 def login():
@@ -35,13 +35,13 @@ def login():
     return f,log   
 
 
-def add_book():
-    if len(lib)==0:
+def add_fwr():
+    if len(fwr)==0:
         id=201
     else:
-        id=lib[-1]['id']+1
+        id=fwr[-1]['id']+1
     f1=0
-    for i in lib:
+    for i in fwr:
         if i['id']==id:
             f1=1
             add_book()
@@ -49,18 +49,18 @@ def add_book():
         name=str(input('enter the name :'))
         price=int(input('enter the price :'))
         stock=int(input('enter the stock'))
-        lib.append({'name':name,'id':id,'price':price,'stock':stock})
+        fwr.append({'name':name,'id':id,'price':price,'stock':stock})
 
 
-def view_book():
-    for i in lib:
+def view_fwr():
+    for i in fwr:
         print(i)
 
 
-def update_book():
+def update_fwr():
     id=int(input('enter id :'))                                                         
     f1=0
-    for i in lib:
+    for i in fwr:
         if i['id']==id:
             f1=1
             price=int(input('enter price :'))                                   
@@ -75,10 +75,10 @@ def update_book():
 def delete():
     id=int(input('enter id :'))
     f1=0
-    for i in lib:
+    for i in fwr:
         if i['id']==id:
             f1=1
-            lib.remove(i)
+            fwr.remove(i)
 
     if f1==0:
         print('invalid id')
@@ -90,6 +90,10 @@ def view_user():
         print('id',i['id'])
         print('email',i['email'])
         print('phone',i['phone'])
+
+
+
+
 
 
 
@@ -107,35 +111,23 @@ def update_profile(log):
   
 
 
-def lend_book(log):
+def buy_fwr(log):
     id=int(input('enter id :'))
     f=0
-    for i in lib:
+    for i in fwr:
         if i['id']==id:
             f=1
             i['stock']-=1
-            log['books'].append(id)
-            print('book added')
-    if f==0:
-        print('invalid id')
-
-
-def return_book(log):
-    id=int(input('enter id :'))
-    f=0
-    for i in lib:
-        if i['id']==id and id in log['books']:
-            f=1
-            i['stock']+=1
-            log['books'].remove(id)
-            print('book returned')
+            log['fwrs'].append(id)
+            print('shoes added')
     if f==0:
         print('invalid id')
 
 
 
-def book_in_hand(log):
-    print(log['books'])
+
+def fwr_in_hand(log):
+    print(log['fwrs'])
 
 
 
@@ -156,20 +148,20 @@ while True:
         if f==1:
             while True:
                 print('''
-                1.add book
-                2.view book
-                3.update book
+                1.add fwr
+                2.view fwr
+                3.update fwr
                 4.delete
                 5.view user
                 6.exit
                 ''')
                 sub_ch=int(input('enter the choice :'))
                 if sub_ch==1:
-                    add_book()
+                    add_fwr()
                 elif sub_ch==2:
-                    view_book()
+                    view_fwr()
                 elif sub_ch==3:
-                    update_book()
+                    update_fwr()
                 elif sub_ch==4:
                     delete()
                 elif sub_ch==5:
@@ -181,27 +173,24 @@ while True:
             while True:
                 print('''
                 1.view profile
-                2.view book
+                2.view fwr
                 3.update profile
-                4.lend book
-                5.return book
-                6.book in hand
-                7.exit
+                4.buy fwr
+                5.fwr in hand
+                6.exit
                 ''')
                 sub_ch=int(input('enter the choice :'))
                 if sub_ch==1:
                     view_profile(log)
                 elif sub_ch==2:
-                    view_book()
+                    view_fwr()
                 elif sub_ch==3:
                     update_profile(log)
                 elif sub_ch==4:
-                    lend_book(log)
+                    buy_fwr(log)
                 elif sub_ch==5:
-                    return_book(log)
+                    fwr_in_hand(log)
                 elif sub_ch==6:
-                    book_in_hand(log)
-                elif sub_ch==7:
                     break
 
 
